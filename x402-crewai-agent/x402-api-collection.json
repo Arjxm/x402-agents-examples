@@ -1,0 +1,209 @@
+{
+  "info": {
+    "name": "x402 Paid APIs",
+    "description": "Payment-gated API services using x402 protocol",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get API Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": [""]
+        },
+        "description": "Get API information and pricing"
+      }
+    },
+    {
+      "name": "1. Weather - Get Challenge (402)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/api/weather?city=London",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "weather"],
+          "query": [
+            {
+              "key": "city",
+              "value": "London"
+            }
+          ]
+        },
+        "description": "Request without token - returns 402 Payment Required"
+      }
+    },
+    {
+      "name": "2. Process Payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"challenge_id\": \"PASTE_CHALLENGE_ID_HERE\",\n  \"payment_token\": \"test_token_123\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/payment",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["payment"]
+        },
+        "description": "Process payment - returns access token"
+      }
+    },
+    {
+      "name": "3. Weather - With Token (200)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Access-Token",
+            "value": "PASTE_ACCESS_TOKEN_HERE"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/weather?city=London",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "weather"],
+          "query": [
+            {
+              "key": "city",
+              "value": "London"
+            }
+          ]
+        },
+        "description": "Request with access token - returns weather data"
+      }
+    },
+    {
+      "name": "Stock Data",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Access-Token",
+            "value": "PASTE_ACCESS_TOKEN_HERE"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/stock_data?symbol=AAPL",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "stock_data"],
+          "query": [
+            {
+              "key": "symbol",
+              "value": "AAPL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "News",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Access-Token",
+            "value": "PASTE_ACCESS_TOKEN_HERE"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:8000/api/news?topic=AI",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "news"],
+          "query": [
+            {
+              "key": "topic",
+              "value": "AI"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Translation",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Access-Token",
+            "value": "PASTE_ACCESS_TOKEN_HERE"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Hello World\",\n  \"target_language\": \"es\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/translation?text=Hello%20World&target_language=es",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "translation"],
+          "query": [
+            {
+              "key": "text",
+              "value": "Hello World"
+            },
+            {
+              "key": "target_language",
+              "value": "es"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Data Analysis",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Access-Token",
+            "value": "PASTE_ACCESS_TOKEN_HERE"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sales\": [100, 150, 200, 175],\n  \"month\": \"January\",\n  \"metrics\": [\"revenue\", \"growth\"]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/data_analysis",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "data_analysis"]
+        }
+      }
+    }
+  ]
+}
