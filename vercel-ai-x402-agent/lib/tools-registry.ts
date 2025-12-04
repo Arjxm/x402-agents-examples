@@ -8,6 +8,7 @@
 
 import { z } from 'zod';
 import { X402ServerClient } from './x402-server';
+import { getBaseApiUrl } from './config';
 
 // Initialize x402 client for agent payments
 const x402Client = new X402ServerClient(
@@ -22,7 +23,7 @@ export const PAID_APIS = [
   {
     name: 'test_sentiment_analysis',
     description: 'Test sentiment analysis with transaction tracking (costs $0.10 USDC) - Working demo!',
-    endpoint: 'http://localhost:3000/api/test-paid',
+    endpoint: `${getBaseApiUrl()}/api/test-paid`,
     method: 'POST' as const,
     cost: 0.10,
     schema: z.object({
@@ -35,7 +36,7 @@ export const PAID_APIS = [
   {
     name: 'premium_sentiment_analysis',
     description: 'Advanced AI-powered sentiment analysis using GPT (costs $0.10 USDC) - Real OpenAI API!',
-    endpoint: 'http://localhost:3000/api/sentiment',
+    endpoint: `${getBaseApiUrl()}/api/sentiment`,
     method: 'POST' as const,
     cost: 0.10,
     schema: z.object({
