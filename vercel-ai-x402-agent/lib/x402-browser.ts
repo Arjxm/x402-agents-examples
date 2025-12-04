@@ -3,7 +3,14 @@
  * For client-side wallet signing with MetaMask
  */
 
-import { BrowserProvider, Signer } from 'ethers';
+import { BrowserProvider, Signer, Eip1193Provider } from 'ethers';
+
+// Extend Window interface to include ethereum provider
+declare global {
+  interface Window {
+    ethereum?: Eip1193Provider;
+  }
+}
 
 interface PaymentRequirement {
   scheme: string;
